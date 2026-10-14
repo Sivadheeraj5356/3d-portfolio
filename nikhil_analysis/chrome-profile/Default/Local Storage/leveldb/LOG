@@ -1,0 +1,14 @@
+2026/10/13-01:20:59.959 6330 Creating DB D:\ai-saas\portfolio\nikhil_analysis\chrome-profile\Default\Local Storage\leveldb since it was missing.
+2026/10/13-01:21:00.019 6330 Reusing MANIFEST D:\ai-saas\portfolio\nikhil_analysis\chrome-profile\Default\Local Storage\leveldb/MANIFEST-000001
+2026/10/13-04:23:01.418 602c Level-0 table #5: started
+2026/10/13-04:23:01.434 602c Level-0 table #5: 8328 bytes OK
+2026/10/13-04:23:01.440 602c Delete type=0 #3
+2026/10/13-11:07:59.399 602c Level-0 table #7: started
+2026/10/13-11:07:59.414 602c Level-0 table #7: 7842 bytes OK
+2026/10/13-11:07:59.424 602c Delete type=0 #4
+2026/10/13-11:26:05.427 602c Level-0 table #9: started
+2026/10/13-11:26:05.439 602c Level-0 table #9: 7790 bytes OK
+2026/10/13-11:26:05.447 602c Delete type=0 #6
+2026/10/13-13:26:11.066 602c Level-0 table #11: started
+2026/10/13-13:26:11.085 602c Level-0 table #11: 8019 bytes OK
+2026/10/13-13:26:11.092 602c Delete type=0 #8
