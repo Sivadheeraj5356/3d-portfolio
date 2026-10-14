@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Siva Dheeraj - full-stack developer</title>
+<meta name="description" content="Portfolio of Siva Dheeraj: full-stack developer building products and web apps. Projects, stack and contact, laid out as a desktop.">
+<meta name="theme-color" content="#1b2433">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231b2433'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='%23f4b66a' font-family='Georgia' font-weight='700'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="boot" role="status" aria-live="polite">
+  <h1>Siva Dheeraj</h1>
+  <div class="bar"><i id="bootbar"></i></div>
+  <p id="bootmsg">Laying out the desk</p>
+</div>
+
+<div id="wall" aria-hidden="true"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
+
+<header id="menubar">
+  <div class="mb-left">
+    <button class="mb-logo" aria-label="Siva Dheeraj" data-open="notes">S</button>
+    <strong id="appname">Notes</strong>
+    <button class="mb-item hide-sm" data-open="notes">About</button>
+    <button class="mb-item hide-sm" data-open="projects">Projects</button>
+    <button class="mb-item hide-sm" data-open="terminal">Terminal</button>
+    <button class="mb-item hide-sm" data-open="mail">Contact</button>
+  </div>
+  <div class="mb-right"><span class="hide-sm">Open to work</span><span id="clock">--:--</span></div>
+</header>
+
+<main id="desk">
+  <!-- Notes: about -->
+  <section class="win" id="win-notes" data-app="Notes" aria-label="About window">
+    <div class="titlebar"><span class="lights"><button class="l close" aria-label="Close"></button><button class="l min" aria-label="Minimize"></button><button class="l max" aria-label="Maximize"></button></span><span class="wtitle">About</span></div>
+    <div class="wbody notes">
+      <aside class="nlist" role="tablist" aria-label="Notes">
+        <button role="tab" class="on" data-note="about" aria-selected="true"><b>about me</b><small>who I am</small></button>
+        <button role="tab" data-note="now" aria-selected="false"><b>now</b><small>what I'm doing</small></button>
+        <button role="tab" data-note="stack" aria-selected="false"><b>stack</b><small>tools I reach for</small></button>
+        <button role="tab" data-note="path" aria-selected="false"><b>path</b><small>roles and school</small></button>
+      </aside>
+      <article class="npage" id="npage" tabindex="0"></article>
+    </div>
+  </section>
+
+  <!-- Finder: projects -->
+  <section class="win" id="win-projects" data-app="Finder" aria-label="Projects window">
+    <div class="titlebar"><span class="lights"><button class="l close" aria-label="Close"></button><button class="l min" aria-label="Minimize"></button><button class="l max" aria-label="Maximize"></button></span><span class="wtitle">Projects</span></div>
+    <div class="wbody"><div class="pgrid" id="pgrid"></div></div>
+  </section>
+
+  <!-- Terminal -->
+  <section class="win" id="win-terminal" data-app="Terminal" aria-label="Terminal window">
+    <div class="titlebar dark"><span class="lights"><button class="l close" aria-label="Close"></button><button class="l min" aria-label="Minimize"></button><button class="l max" aria-label="Maximize"></button></span><span class="wtitle">siva - zsh</span></div>
+    <div class="wbody term" id="term"><div id="tout" aria-live="polite"></div>
+      <form id="tform" autocomplete="off"><label for="tin">siva@desk ~ %</label><input id="tin" spellcheck="false" autocapitalize="off" aria-label="Terminal input"></form></div>
+  </section>
+
+  <!-- Mail: contact -->
+  <section class="win" id="win-mail" data-app="Mail" aria-label="Contact window">
+    <div class="titlebar"><span class="lights"><button class="l close" aria-label="Close"></button><button class="l min" aria-label="Minimize"></button><button class="l max" aria-label="Maximize"></button></span><span class="wtitle">New message</span></div>
+    <div class="wbody mail">
+      <dl class="hdr"><dt>To</dt><dd>Siva Dheeraj</dd><dt>Subject</dt><dd>Let's build something</dd></dl>
+      <p class="lead">Best way to reach me is email. I read everything and reply.</p>
+      <a class="btn" href="mailto:sivadheeraj5356@gmail.com?subject=Hello%20Siva">Write an email</a>
+      <ul class="links">
+        <li><a href="https://github.com/Sivadheeraj5356" target="_blank" rel="noopener">GitHub <span>Sivadheeraj5356</span></a></li>
+        <li><a href="https://www.linkedin.com/in/sivadheeraj" target="_blank" rel="noopener">LinkedIn <span>in/sivadheeraj</span></a></li>
+        <li><a href="https://x.com/siva_dheeraj_" target="_blank" rel="noopener">X <span>@siva_dheeraj_</span></a></li>
+        <li><a href="https://sivadheeraj.vercel.app/resume.pdf" target="_blank" rel="noopener">Resume <span>PDF</span></a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<nav id="dock" aria-label="Apps">
+  <button data-open="notes" aria-label="About"><i class="ic ic-notes"></i><em>About</em></button>
+  <button data-open="projects" aria-label="Projects"><i class="ic ic-finder"></i><em>Projects</em></button>
+  <button data-open="terminal" aria-label="Terminal"><i class="ic ic-term"></i><em>Terminal</em></button>
+  <button data-open="mail" aria-label="Contact"><i class="ic ic-mail"></i><em>Contact</em></button>
+</nav>
+<script src="app.js"></script>
+</body>
+</html>
