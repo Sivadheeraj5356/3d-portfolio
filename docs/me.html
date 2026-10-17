@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Siva Dheeraj - Me in 3D</title>
+<meta name="description" content="Siva Dheeraj in 3D: scroll to rotate the head through his experience and projects.">
+<style>
+:root{--ink:#e8ecf4;--dim:#9aa4b8;--line:rgba(255,255,255,.12);--accent:#35e0ff;--accent2:#ff4fd8}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+body{background:#0b0d13;color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;overflow-x:hidden}
+#bg{position:fixed;inset:0;width:100%;height:100vh;z-index:0;display:block}
+.vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 40%,rgba(4,5,9,.72) 100%)}
+.bar{position:fixed;top:0;left:0;right:0;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:18px 26px;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.bar a{color:var(--dim);text-decoration:none}
+.bar a:hover{color:var(--ink)}
+main{position:relative;z-index:2;pointer-events:none}
+main a{pointer-events:auto}
+section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 8vw}
+.hero h1{font-size:clamp(44px,9vw,120px);font-weight:800;letter-spacing:-.02em;line-height:.95}
+.hero .role{margin-top:18px;color:var(--dim);font-size:clamp(15px,2vw,20px);max-width:34ch}
+.scrollhint{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;color:var(--dim);font-size:11px;letter-spacing:.3em;text-transform:uppercase}
+.kick{color:var(--accent);font-size:12px;letter-spacing:.32em;text-transform:uppercase;margin-bottom:14px}
+h2{font-size:clamp(30px,5vw,58px);font-weight:750;letter-spacing:-.01em}
+.item{opacity:.14;transform:translateY(14px);transition:opacity .35s ease,transform .35s ease;margin:26px 0;max-width:620px}
+.item.on{opacity:1;transform:none}
+.item h3{font-size:clamp(19px,2.6vw,28px);font-weight:700}
+.item .sub{color:var(--dim);font-size:14px;margin-top:6px}
+.chips{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+.chips span{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:11.5px;color:var(--dim)}
+.links{margin-top:10px;display:flex;gap:16px;font-size:13.5px}
+.links a{color:var(--accent);text-decoration:none}
+.links a:hover{text-decoration:underline}
+.gal{background:rgba(10,12,18,.78);backdrop-filter:blur(10px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.gal .item{max-width:760px}
+footer{min-height:70vh;display:flex;flex-direction:column;justify-content:center;padding:0 8vw;position:relative;z-index:2;background:rgba(8,9,14,.85);backdrop-filter:blur(8px)}
+footer .links{font-size:15px;gap:22px;flex-wrap:wrap}
+footer .links a{color:var(--ink)}
+.side{position:absolute;inset:0;pointer-events:none}
+@media (min-width:861px){
+  .exp section,.expblock{padding-right:44vw}
+  .expblock .item{margin-left:auto}
+}
+@media (max-width:860px){
+  section{padding:0 7vw}
+  .item{max-width:88vw}
+}
+.num{color:var(--accent2);font-size:12px;letter-spacing:.2em;margin-bottom:6px}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="vignette"></div>
+<header class="bar">
+  <a href="index.html">&larr; desktop</a>
+  <span>Siva Dheeraj</span>
+</header>
+<main>
+  <section class="hero">
+    <div class="kick">Me in 3D</div>
+    <h1>Siva<br>Dheeraj</h1>
+    <p class="role">Full-stack developer. I build products and web apps that people use. Scroll - my work turns with me.</p>
+  </section>
+
+  <section class="expblock" id="exp">
+    <div class="kick">Experience</div>
+    <h2>The path so far</h2>
+  </section>
+
+  <section class="gal" id="proj">
+    <div class="kick">Projects</div>
+    <h2>Things I've built</h2>
+  </section>
+</main>
+<footer>
+  <div class="kick">Contact</div>
+  <h2>Say hello</h2>
+  <div class="links" style="margin-top:18px">
+    <a href="mailto:sivadheeraj5356@gmail.com">sivadheeraj5356@gmail.com</a>
+    <a href="https://github.com/Sivadheeraj5356" target="_blank" rel="noopener">github.com/Sivadheeraj5356</a>
+    <a href="https://www.linkedin.com/in/sivadheeraj" target="_blank" rel="noopener">linkedin.com/in/sivadheeraj</a>
+    <a href="index.html">back to the desktop &rarr;</a>
+  </div>
+</footer>
+<div class="scrollhint">scroll</div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module" src="me.js"></script>
+</body>
+</html>
