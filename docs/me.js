@@ -86,7 +86,7 @@ addEventListener('resize', resize);
 resize();
 
 let ready = false;
-new GLTFLoader().load('assets/head.glb', (gltf) => {
+new GLTFLoader().load('assets/bust.glb', (gltf) => {
   const inner = gltf.scene;
   const box = new THREE.Box3().setFromObject(inner);
   const size = box.getSize(new THREE.Vector3());
@@ -122,6 +122,7 @@ renderer.setAnimationLoop((now) => {
     model.rotation.y += (targetRot - model.rotation.y) * Math.min(1, dt * 6);
     model.rotation.x = Math.sin(now / 2400) * 0.03;
   }
+  target.y = -0.15 + 0.62 * zoomT;
   applyFraming(d);
 
   /* reveal the item nearest the viewport middle */
