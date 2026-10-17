@@ -141,7 +141,14 @@ if (host && canvas && window.ME3D_ITEMS) {
     box.getCenter(center);
     inner.position.sub(center);
     inner.rotation.y = -Math.PI / 2;
-    model.add(inner);
+    inner.traverse((o) => {
+    if (o.isMesh && o.material) {
+      const m = o.material;
+      const b = new THREE.MeshBasicMaterial({ map: m.map || null, color: m.color ? m.color.clone() : new THREE.Color(0xffffff), vertexColors: !!m.vertexColors, transparent: !!m.transparent, side: m.side });
+      o.material = b;
+    }
+  });
+  model.add(inner);
     controls.target.set(0, 0.15, 0);
     camera.position.set(0.3, 0.22, 3.25);
     applyFraming();

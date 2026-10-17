@@ -98,6 +98,13 @@ new GLTFLoader().load('assets/bust.glb', (gltf) => {
   box.setFromObject(inner);
   box.getCenter(center);
   inner.position.sub(center);
+  inner.traverse((o) => {
+    if (o.isMesh && o.material) {
+      const m = o.material;
+      const b = new THREE.MeshBasicMaterial({ map: m.map || null, color: m.color ? m.color.clone() : new THREE.Color(0xffffff), vertexColors: !!m.vertexColors, transparent: !!m.transparent, side: m.side });
+      o.material = b;
+    }
+  });
   model.add(inner);
   ready = true;
 });
