@@ -2,12 +2,12 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const EXPERIENCE = [
-  { t: 'Founding engineer, Applied Work', s: 'September 2026 to now' },
-  { t: 'Growth, Buildalytic', s: 'July to September 2026' },
-  { t: 'Hacktoberfest open-source contributor', s: 'October 2024' },
-  { t: 'Re-Imagine Hackathon 2024', s: 'Redesigned the Swiggy and Air India websites. Qualified for the second round.' },
-  { t: 'Junior developer, GDG IIIT Surat', s: '' },
-  { t: 'B.Tech, Electronics and Communication, IIIT Surat', s: '2023 to 2027' }
+  { t: 'Founding engineer, Applied Work', s: 'Applied Work', when: 'Sep 2026 - now' },
+  { t: 'Growth', s: 'Buildalytic', when: 'Jul - Sep 2026' },
+  { t: 'Open-source contributor', s: 'Hacktoberfest', when: 'Oct 2024' },
+  { t: 'Re-Imagine Hackathon 2024', s: 'Redesigned the Swiggy and Air India websites. Qualified for the second round.', when: '2024' },
+  { t: 'Junior developer', s: 'GDG IIIT Surat', when: '' },
+  { t: 'B.Tech, Electronics and Communication', s: 'IIIT Surat', when: '2023 - 2027' }
 ];
 const PROJECTS = [
   { n: 'Mock AI', d: 'AI interview platform that helps you prepare for your interviews.', t: ['Next.js', 'Tailwind', 'PostgreSQL', 'Drizzle', 'Gemini API', 'Clerk'], live: 'https://mock-ai-one.vercel.app', src: 'https://github.com/Sivadheeraj5356/mock-ai' },
@@ -22,12 +22,12 @@ const PROJECTS = [
 
 function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
-/* Build content blocks */
 const expHost = document.getElementById('exp');
 EXPERIENCE.forEach((e, i) => {
   const d = document.createElement('div');
   d.className = 'item';
-  d.innerHTML = '<div class="num">' + String(i + 1).padStart(2, '0') + '</div><h3>' + esc(e.t) + '</h3>' + (e.s ? '<div class="sub">' + esc(e.s) + '</div>' : '');
+  d.innerHTML = (e.when ? '<div class="when">' + esc(e.when) + '</div>' : '') +
+    '<h3>' + esc(e.t) + '</h3>' + (e.s ? '<div class="sub">' + esc(e.s) + '</div>' : '');
   expHost.appendChild(d);
 });
 const projHost = document.getElementById('proj');
@@ -44,7 +44,6 @@ PROJECTS.forEach((p, i) => {
 });
 const items = [...document.querySelectorAll('.item')];
 
-
 /* --- three.js backdrop --- */
 const canvas = document.getElementById('bg');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -53,39 +52,35 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
-const target = new THREE.Vector3(0, -0.08, 0);
+const target = new THREE.Vector3(0, -0.05, 0);
+const camDir = new THREE.Vector3(0.06, 0.05, 1).normalize();
 
-scene.add(new THREE.AmbientLight(0x8fa3c7, 0.6));
-const key = new THREE.DirectionalLight(0xfff1dd, 1.15);
+scene.add(new THREE.AmbientLight(0xf2ecd9, 0.85));
+const key = new THREE.DirectionalLight(0xfff1dd, 1.5);
 key.position.set(2.2, 3.4, 2.6);
 scene.add(key);
-const rimCyan = new THREE.DirectionalLight(0x35e0ff, 1.6);
-rimCyan.position.set(-3.2, 1.6, -2.4);
-scene.add(rimCyan);
-const rimMagenta = new THREE.DirectionalLight(0xff4fd8, 1.3);
-rimMagenta.position.set(3.0, 1.2, -2.8);
-scene.add(rimMagenta);
-const fill = new THREE.DirectionalLight(0xfff4e6, 0.55);
-fill.position.set(0.4, 0.3, 3.0);
+const fill = new THREE.DirectionalLight(0xdfe8ff, 0.6);
+fill.position.set(-2.0, 0.8, 2.4);
 scene.add(fill);
-const hemi = new THREE.HemisphereLight(0x3a4460, 0x1a1410, 0.5);
-scene.add(hemi);
+const rim = new THREE.DirectionalLight(0x9db8ff, 0.7);
+rim.position.set(0.5, 1.6, -2.8);
+scene.add(rim);
 
 const model = new THREE.Group();
 scene.add(model);
 
-function applyFraming() {
+let baseD = 3.2;
+function applyFraming(d) {
   const aspect = camera.aspect || 1;
-  const d = Math.max(3.25, 2.45 / aspect);
-  camera.position.copy(target).add(new THREE.Vector3(0.09, 0.07, 1).normalize().multiplyScalar(d));
+  const fit = Math.max(1, 1.9 / aspect);
+  camera.position.copy(target).addScaledVector(camDir, d * fit);
   camera.lookAt(target);
   camera.updateProjectionMatrix();
 }
 function resize() {
-  const w = innerWidth, h = innerHeight;
-  renderer.setSize(w, h, false);
-  camera.aspect = w / h;
-  applyFraming();
+  renderer.setSize(innerWidth, innerHeight, false);
+  camera.aspect = innerWidth / innerHeight;
+  applyFraming(baseD);
 }
 addEventListener('resize', resize);
 resize();
@@ -96,7 +91,7 @@ new GLTFLoader().load('assets/head.glb', (gltf) => {
   const box = new THREE.Box3().setFromObject(inner);
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
-  inner.scale.setScalar(1.62 / Math.max(size.x, size.y, size.z));
+  inner.scale.setScalar(2.15 / Math.max(size.x, size.y, size.z));
   box.setFromObject(inner);
   box.getCenter(center);
   inner.position.sub(center);
@@ -104,7 +99,11 @@ new GLTFLoader().load('assets/head.glb', (gltf) => {
   ready = true;
 });
 
-/* scroll drives rotation; items light up in turn */
+/* scroll: rotate + dolly into the face for the resume, dark sections cover for works */
+const hintEl = document.getElementById('scrollhint');
+const bar = document.getElementById('bar');
+function smooth(a, b, x) { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); }
+
 let last = performance.now();
 let shown = -1;
 renderer.setAnimationLoop((now) => {
@@ -113,15 +112,34 @@ renderer.setAnimationLoop((now) => {
   const doc = document.documentElement;
   const max = Math.max(1, doc.scrollHeight - innerHeight);
   const p = Math.min(1, Math.max(0, scrollY / max));
+
+  const expTop = expHost.offsetTop - innerHeight * 0.35;
+  const zoomT = smooth(expTop, expTop + innerHeight * 1.2, scrollY);
+  const d = baseD + (1.45 - baseD) * zoomT;
+
   if (ready) {
-    const targetRot = p * Math.PI * 4;
+    const targetRot = p * Math.PI * 3;
     model.rotation.y += (targetRot - model.rotation.y) * Math.min(1, dt * 6);
     model.rotation.x = Math.sin(now / 2400) * 0.03;
   }
-  const idx = Math.min(items.length - 1, Math.floor(p * items.length));
-  if (idx !== shown) {
-    shown = idx;
-    items.forEach((el, i) => el.classList.toggle('on', i === idx));
+  applyFraming(d);
+
+  /* reveal the item nearest the viewport middle */
+  let best = -1, bestDist = 1e9;
+  const mid = innerHeight * 0.5;
+  items.forEach((el, i) => {
+    const r = el.getBoundingClientRect();
+    const c = r.top + r.height / 2;
+    const dist = Math.abs(c - mid);
+    if (c > -r.height * 0.2 && c < innerHeight + r.height * 0.2 && dist < bestDist) { bestDist = dist; best = i; }
+  });
+  if (best !== shown) {
+    shown = best;
+    items.forEach((el, i) => el.classList.toggle('on', i === best));
   }
+
+  if (hintEl) hintEl.style.opacity = scrollY > 40 ? '0' : '1';
+  if (bar) bar.classList.toggle('dark', projHost.getBoundingClientRect().top < 60);
+
   renderer.render(scene, camera);
 });
