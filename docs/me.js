@@ -75,7 +75,7 @@ scene.add(model);
 let baseD = 3.35;
 function applyFraming(d) {
   const aspect = camera.aspect || 1;
-  const fit = Math.max(1, 1.9 / aspect);
+  const fit = Math.max(1, Math.min(1.45, 0.66 / aspect));
   camera.position.copy(target).addScaledVector(camDir, d * fit);
   camera.lookAt(target);
   camera.updateProjectionMatrix();
