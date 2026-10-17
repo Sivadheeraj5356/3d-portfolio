@@ -125,14 +125,14 @@ if (host && canvas && window.ME3D_ITEMS) {
     const box = new THREE.Box3().setFromObject(inner);
     const size = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
-    const scale = 2.0 / Math.max(size.x, size.y, size.z);
+    const scale = 1.62 / Math.max(size.x, size.y, size.z);
     inner.scale.setScalar(scale);
     box.setFromObject(inner);
     box.getCenter(center);
     inner.position.sub(center);
     model.add(inner);
-    controls.target.set(0, 0.05, 0);
-    camera.position.set(0.35, 0.35, 2.9);
+    controls.target.set(0, -0.08, 0);
+    camera.position.set(0.3, 0.22, 3.25);
     controls.update();
     ready = true;
     if (hint) hint.textContent = 'drag to rotate - my work turns with me';
