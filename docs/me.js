@@ -126,7 +126,7 @@ renderer.setAnimationLoop((now) => {
   const expTop = expHost.offsetTop - innerHeight * 0.35;
   const zoomT = smooth(expTop, expTop + innerHeight * 1.2, scrollY);
   const wide = (camera.aspect || 1) > 1.2;
-  const d = baseD + (2.0 - baseD) * zoomT;
+  const d = baseD + (2.6 - baseD) * zoomT;
 
   if (ready) {
     const targetRot = -Math.PI / 2 + p * Math.PI * 3;
@@ -134,7 +134,7 @@ renderer.setAnimationLoop((now) => {
     model.rotation.x = Math.sin(now / 2400) * 0.03;
   }
   target.y = -0.15 + 0.55 * zoomT;
-  model.position.x = wide ? -0.62 * zoomT : 0;
+  model.position.x = wide ? -0.85 * zoomT : 0;
   applyFraming(d);
 
   /* reveal the item nearest the viewport middle */
