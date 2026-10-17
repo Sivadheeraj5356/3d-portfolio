@@ -44,10 +44,6 @@ PROJECTS.forEach((p, i) => {
 });
 const items = [...document.querySelectorAll('.item')];
 
-/* Scroll length: one viewport per item, plus hero and footer breathing room */
-const spacer = document.createElement('div');
-spacer.style.height = (items.length * 70) + 'vh';
-document.querySelector('main').appendChild(spacer);
 
 /* --- three.js backdrop --- */
 const canvas = document.getElementById('bg');
@@ -69,6 +65,11 @@ scene.add(rimCyan);
 const rimMagenta = new THREE.DirectionalLight(0xff4fd8, 1.3);
 rimMagenta.position.set(3.0, 1.2, -2.8);
 scene.add(rimMagenta);
+const fill = new THREE.DirectionalLight(0xfff4e6, 0.55);
+fill.position.set(0.4, 0.3, 3.0);
+scene.add(fill);
+const hemi = new THREE.HemisphereLight(0x3a4460, 0x1a1410, 0.5);
+scene.add(hemi);
 
 const model = new THREE.Group();
 scene.add(model);
