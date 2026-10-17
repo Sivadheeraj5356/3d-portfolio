@@ -38,6 +38,25 @@ var NOTES={
   '<li><b>B.Tech, Electronics and Communication, IIIT Surat</b><span>2023 to 2027</span></li></ul>'}
 };
 
+/* ---------- Me in 3D: rotation-synced experience + projects ---------- */
+var EXPERIENCE=[
+ {t:'Founding engineer, Applied Work',s:'September 2026 to now'},
+ {t:'Growth, Buildalytic',s:'July to September 2026'},
+ {t:'Hacktoberfest open-source contributor',s:'October 2024'},
+ {t:'Re-Imagine Hackathon 2024',s:'Redesigned the Swiggy and Air India websites. Qualified for the second round.'},
+ {t:'Junior developer, GDG IIIT Surat',s:''},
+ {t:'B.Tech, Electronics and Communication, IIIT Surat',s:'2023 to 2027'}
+];
+window.ME3D_ITEMS=[].concat(
+ EXPERIENCE.map(function(e){return {kind:'exp',title:e.t,sub:e.s}}),
+ PROJECTS.map(function(x){
+   var links=[];
+   if(x.live)links.push({href:x.live,label:'Live'});
+   if(x.src)links.push({href:x.src,label:'Source'});
+   return {kind:'proj',title:x.n,desc:x.d,chips:x.t,links:links};
+ })
+);
+
 /* ---------- boot ---------- */
 var bar=$('#bootbar'),boot=$('#boot'),p=0;
 var iv=setInterval(function(){p=Math.min(100,p+Math.random()*28+12);bar.style.width=p+'%';if(p>=100){clearInterval(iv);setTimeout(function(){boot.classList.add('done');start()},200)}},110);
@@ -62,9 +81,9 @@ $('#pgrid').innerHTML=PROJECTS.map(function(x){
    (x.live?'<a href="'+x.live+'" target="_blank" rel="noopener">Live</a>':'')+(x.src?'<a href="'+x.src+'" target="_blank" rel="noopener">Source</a>':'')+'</div></article>'}).join('');
 
 /* ---------- windows ---------- */
-var wins={notes:$('#win-notes'),projects:$('#win-projects'),terminal:$('#win-terminal'),mail:$('#win-mail')};
+var wins={notes:$('#win-notes'),projects:$('#win-projects'),me3d:$('#win-me3d'),terminal:$('#win-terminal'),mail:$('#win-mail')};
 var z=10,small=function(){return matchMedia('(max-width:760px)').matches};
-var geo={notes:[.06,.05,.56,.78],projects:[.2,.1,.62,.74],terminal:[.12,.18,.5,.62],mail:[.3,.08,.38,.7]};
+var geo={notes:[.06,.05,.56,.78],projects:[.2,.1,.62,.74],me3d:[.5,.06,.46,.84],terminal:[.12,.18,.5,.62],mail:[.3,.08,.38,.7]};
 function place(k){
   var d=$('#desk'),w=d.clientWidth,h=d.clientHeight,g=geo[k],el=wins[k];
   el.style.width=Math.max(340,w*g[2])+'px';el.style.height=Math.max(320,h*g[3])+'px';
@@ -130,8 +149,8 @@ $('#term').addEventListener('click',function(){if(!getSelection().toString())$('
 
 function start(){
   var q=(location.hash||'').slice(1);
-  if(wins[q]||q==='about')openApp(q==='about'?'notes':q);else openApp('notes');
-  if(!small()&&!q){openApp('projects');openApp('notes')};
+  if(wins[q]||q==='about')openApp(q==='about'?'notes':q);else openApp('me3d');
+  if(!small()&&!q){openApp('projects');openApp('notes');openApp('me3d')};
 }
 addEventListener('resize',function(){var d=$('#desk');$$('.win').forEach(function(x){if(x.classList.contains('max')||small())return;x.style.width=Math.min(x.offsetWidth,d.clientWidth-16)+'px';x.style.height=Math.min(x.offsetHeight,d.clientHeight-16)+'px';x.style.left=Math.max(8,Math.min(x.offsetLeft,d.clientWidth-x.offsetWidth-8))+'px';x.style.top=Math.max(8,Math.min(x.offsetTop,d.clientHeight-x.offsetHeight-8))+'px'});if(small())$$('.win').forEach(function(x){x.style.removeProperty('visibility')});var f=$('.win.front.open');if(f)focus(f.id.slice(4))});
 })();
