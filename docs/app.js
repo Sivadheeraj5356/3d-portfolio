@@ -62,9 +62,9 @@ $('#pgrid').innerHTML=PROJECTS.map(function(x){
    (x.live?'<a href="'+x.live+'" target="_blank" rel="noopener">Live</a>':'')+(x.src?'<a href="'+x.src+'" target="_blank" rel="noopener">Source</a>':'')+'</div></article>'}).join('');
 
 /* ---------- windows ---------- */
-var wins={notes:$('#win-notes'),projects:$('#win-projects'),terminal:$('#win-terminal'),mail:$('#win-mail')};
+var wins={notes:$('#win-notes'),projects:$('#win-projects'),avatar:$('#win-avatar'),terminal:$('#win-terminal'),mail:$('#win-mail')};
 var z=10,small=function(){return matchMedia('(max-width:760px)').matches};
-var geo={notes:[.06,.05,.56,.78],projects:[.2,.1,.62,.74],terminal:[.12,.18,.5,.62],mail:[.3,.08,.38,.7]};
+var geo={notes:[.06,.05,.56,.78],projects:[.2,.1,.62,.74],avatar:[.56,.08,.42,.84],terminal:[.12,.18,.5,.62],mail:[.3,.08,.38,.7]};
 function place(k){
   var d=$('#desk'),w=d.clientWidth,h=d.clientHeight,g=geo[k],el=wins[k];
   el.style.width=Math.max(340,w*g[2])+'px';el.style.height=Math.max(320,h*g[3])+'px';
@@ -110,14 +110,14 @@ addEventListener('pointermove',function(e){if(small())return;var x=(e.clientX/in
 var out=$('#tout'),hist=[],hi=0;
 function line(h,cls){var d=document.createElement('div');d.className='ln '+(cls||'');d.innerHTML=h;out.appendChild(d);$('#term').scrollTop=1e6}
 var CMD={
- help:function(){return ['<span class="k">about</span>     who I am','<span class="k">projects</span>  things I have built','<span class="k">stack</span>     tools I use','<span class="k">path</span>      roles and school','<span class="k">contact</span>   how to reach me','<span class="k">open</span> &lt;about|projects|contact&gt;','<span class="k">clear</span>']},
+ help:function(){return ['<span class="k">about</span>     who I am','<span class="k">projects</span>  things I have built','<span class="k">stack</span>     tools I use','<span class="k">path</span>      roles and school','<span class="k">contact</span>   how to reach me','<span class="k">open</span> &lt;about|projects|avatar|contact&gt;','<span class="k">clear</span>']},
  whoami:function(){return ['Siva Dheeraj, full-stack developer']},
  about:function(){return ['Full-stack developer. I build products and web apps, React and Next.js to Node and Postgres.']},
  projects:function(){return PROJECTS.map(function(x){return '<span class="k">'+esc(x.n)+'</span>  '+esc(x.t.join(', '))})},
  stack:function(){return ['JavaScript, TypeScript, C','React, Next.js, Tailwind, React Native','Node, Express, Prisma, REST','PostgreSQL, MongoDB','Git, Docker, AWS, Vercel']},
  path:function(){return ['Founding engineer, Applied Work (Sep 2026 - now)','Growth, Buildalytic (Jul - Sep 2026)','B.Tech ECE, IIIT Surat (2023 - 2027)']},
  contact:function(){return ['<a href="mailto:sivadheeraj5356@gmail.com">sivadheeraj5356@gmail.com</a>','<a href="https://github.com/Sivadheeraj5356" target="_blank" rel="noopener">github.com/Sivadheeraj5356</a>','<a href="https://www.linkedin.com/in/sivadheeraj" target="_blank" rel="noopener">linkedin.com/in/sivadheeraj</a>']},
- open:function(a){var m={about:'notes',projects:'projects',contact:'mail'}[a];if(!m)return ['usage: open about|projects|contact'];openApp(m);return ['opening '+a]},
+ open:function(a){var m={about:'notes',projects:'projects',avatar:'avatar',contact:'mail'}[a];if(!m)return ['usage: open about|projects|avatar|contact'];openApp(m);return ['opening '+a]},
  clear:function(){out.innerHTML='';return []}
 };
 line('Siva Dheeraj - desk shell. Type <span class="k">help</span>.');
@@ -131,7 +131,7 @@ $('#term').addEventListener('click',function(){if(!getSelection().toString())$('
 function start(){
   var q=(location.hash||'').slice(1);
   if(wins[q]||q==='about')openApp(q==='about'?'notes':q);else openApp('notes');
-  if(!small()&&!q){openApp('projects');openApp('notes')};
+  if(!small()&&!q){openApp('projects');openApp('avatar');openApp('notes')};
 }
 addEventListener('resize',function(){var d=$('#desk');$$('.win').forEach(function(x){if(x.classList.contains('max')||small())return;x.style.width=Math.min(x.offsetWidth,d.clientWidth-16)+'px';x.style.height=Math.min(x.offsetHeight,d.clientHeight-16)+'px';x.style.left=Math.max(8,Math.min(x.offsetLeft,d.clientWidth-x.offsetWidth-8))+'px';x.style.top=Math.max(8,Math.min(x.offsetTop,d.clientHeight-x.offsetHeight-8))+'px'});if(small())$$('.win').forEach(function(x){x.style.removeProperty('visibility')});var f=$('.win.front.open');if(f)focus(f.id.slice(4))});
 })();
