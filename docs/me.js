@@ -69,7 +69,7 @@ scene.add(rim);
 const model = new THREE.Group();
 scene.add(model);
 
-let baseD = 3.2;
+let baseD = 3.35;
 function applyFraming(d) {
   const aspect = camera.aspect || 1;
   const fit = Math.max(1, 1.9 / aspect);
@@ -91,7 +91,7 @@ new GLTFLoader().load('assets/bust.glb', (gltf) => {
   const box = new THREE.Box3().setFromObject(inner);
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
-  inner.scale.setScalar(2.15 / Math.max(size.x, size.y, size.z));
+  inner.scale.setScalar(1.7 / Math.max(size.x, size.y, size.z));
   box.setFromObject(inner);
   box.getCenter(center);
   inner.position.sub(center);
@@ -118,7 +118,7 @@ renderer.setAnimationLoop((now) => {
   const d = baseD + (1.45 - baseD) * zoomT;
 
   if (ready) {
-    const targetRot = p * Math.PI * 3;
+    const targetRot = -Math.PI / 2 + p * Math.PI * 3;
     model.rotation.y += (targetRot - model.rotation.y) * Math.min(1, dt * 6);
     model.rotation.x = Math.sin(now / 2400) * 0.03;
   }
