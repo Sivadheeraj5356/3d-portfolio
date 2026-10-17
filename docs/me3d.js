@@ -130,7 +130,7 @@ if (host && canvas && window.ME3D_ITEMS) {
   resize();
 
   let ready = false;
-  new GLTFLoader().load('assets/head.glb', (gltf) => {
+  new GLTFLoader().load('assets/bust.glb', (gltf) => {
     const inner = gltf.scene;
     const box = new THREE.Box3().setFromObject(inner);
     const size = box.getSize(new THREE.Vector3());
@@ -140,8 +140,9 @@ if (host && canvas && window.ME3D_ITEMS) {
     box.setFromObject(inner);
     box.getCenter(center);
     inner.position.sub(center);
+    inner.rotation.y = -Math.PI / 2;
     model.add(inner);
-    controls.target.set(0, -0.08, 0);
+    controls.target.set(0, 0.15, 0);
     camera.position.set(0.3, 0.22, 3.25);
     applyFraming();
     controls.update();
