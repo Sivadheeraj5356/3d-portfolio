@@ -109,12 +109,22 @@ if (host && canvas && window.ME3D_ITEMS) {
     idleTimer = setTimeout(() => { auto = true; }, 4000);
   });
 
+  function applyFraming() {
+    const aspect = camera.aspect || 1;
+    const d = Math.max(3.25, 2.45 / aspect);
+    const dir = camera.position.clone().sub(controls.target);
+    if (dir.lengthSq() === 0) dir.set(0, 0, 1);
+    dir.normalize();
+    camera.position.copy(controls.target).addScaledVector(dir, d);
+    camera.updateProjectionMatrix();
+  }
+
   function resize() {
     const w = host.clientWidth, h = host.clientHeight;
     if (!w || !h) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    camera.updateProjectionMatrix();
+    applyFraming();
   }
   new ResizeObserver(resize).observe(host);
   resize();
@@ -133,6 +143,7 @@ if (host && canvas && window.ME3D_ITEMS) {
     model.add(inner);
     controls.target.set(0, -0.08, 0);
     camera.position.set(0.3, 0.22, 3.25);
+    applyFraming();
     controls.update();
     ready = true;
     if (hint) hint.textContent = 'drag to rotate - my work turns with me';
