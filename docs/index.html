@@ -24,6 +24,7 @@
     <strong id="appname">Notes</strong>
     <button class="mb-item hide-sm" data-open="notes">About</button>
     <button class="mb-item hide-sm" data-open="projects">Projects</button>
+    <button class="mb-item hide-sm" data-open="avatar">Avatar</button>
     <button class="mb-item hide-sm" data-open="terminal">Terminal</button>
     <button class="mb-item hide-sm" data-open="mail">Contact</button>
   </div>
@@ -49,6 +50,12 @@
   <section class="win" id="win-projects" data-app="Finder" aria-label="Projects window">
     <div class="titlebar"><span class="lights"><button class="l close" aria-label="Close"></button><button class="l min" aria-label="Minimize"></button><button class="l max" aria-label="Maximize"></button></span><span class="wtitle">Projects</span></div>
     <div class="wbody"><div class="pgrid" id="pgrid"></div></div>
+  </section>
+
+  <!-- Avatar: 3D -->
+  <section class="win" id="win-avatar" data-app="Avatar" aria-label="Avatar window">
+    <div class="titlebar"><span class="lights"><button class="l close" aria-label="Close"></button><button class="l min" aria-label="Minimize"></button><button class="l max" aria-label="Maximize"></button></span><span class="wtitle">Avatar</span></div>
+    <div class="wbody avatar-view" id="avatar-view"><canvas id="avatar-canvas"></canvas><span class="avatar-hint" id="avatar-hint">loading avatar</span></div>
   </section>
 
   <!-- Terminal -->
@@ -79,9 +86,12 @@
 <nav id="dock" aria-label="Apps">
   <button data-open="notes" aria-label="About"><i class="ic ic-notes"></i><em>About</em></button>
   <button data-open="projects" aria-label="Projects"><i class="ic ic-finder"></i><em>Projects</em></button>
+  <button data-open="avatar" aria-label="Avatar"><i class="ic ic-avatar"></i><em>Avatar</em></button>
   <button data-open="terminal" aria-label="Terminal"><i class="ic ic-term"></i><em>Terminal</em></button>
   <button data-open="mail" aria-label="Contact"><i class="ic ic-mail"></i><em>Contact</em></button>
 </nav>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module" src="avatar.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
