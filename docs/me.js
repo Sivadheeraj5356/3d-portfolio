@@ -107,7 +107,7 @@ const HIDE3D = new Set(['cuff_L','cuff_R','laptop_base','laptop_screen_1','lapto
       if (HIDE3D.has(o.name)) { o.visible = false; return; }
       const m = o.material;
       const c = m.color ? m.color.clone() : new THREE.Color(0xffffff);
-      if (m.name === 'shirt') c.multiplyScalar(0.55);
+      if (m.name === 'shirt') c.multiplyScalar(0.45);
       const b = new THREE.MeshBasicMaterial({ map: m.map || null, color: c, side: THREE.DoubleSide });
       o.material = b;
     }
