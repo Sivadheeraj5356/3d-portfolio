@@ -97,6 +97,7 @@ const HIDE3D = new Set(['cuff_L','cuff_R','laptop_base','laptop_screen_1','lapto
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
   inner.scale.setScalar(1.7 / Math.max(size.x, size.y, size.z));
+  inner.updateMatrixWorld(true);
   box.makeEmpty();
     inner.traverse((o) => { if (o.isMesh && o.visible !== false && !HIDE3D.has(o.name)) box.expandByObject(o); });
   box.getCenter(center);

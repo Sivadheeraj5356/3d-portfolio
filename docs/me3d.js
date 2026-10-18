@@ -139,6 +139,7 @@ if (host && canvas && window.ME3D_ITEMS) {
     const center = box.getCenter(new THREE.Vector3());
     const scale = 1.62 / Math.max(size.x, size.y, size.z);
     inner.scale.setScalar(scale);
+    inner.updateMatrixWorld(true);
     box.makeEmpty();
     inner.traverse((o) => { if (o.isMesh && o.visible !== false && !HIDE3D.has(o.name)) box.expandByObject(o); });
     box.getCenter(center);
