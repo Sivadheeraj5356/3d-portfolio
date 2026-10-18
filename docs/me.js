@@ -92,7 +92,8 @@ let ready = false;
 const HIDE3D = new Set(['cuff_L','cuff_R','laptop_base','laptop_screen_1','laptop_screen_2','keyboard','seat','seatback','leg','leg001','leg002','leg003','Cylinder','Cube009','Cube009_2','Cube009_3']);
   new GLTFLoader().load('assets/seated_baked.glb', (gltf) => {
   const inner = gltf.scene;
-  const box = new THREE.Box3().setFromObject(inner);
+  const box = new THREE.Box3();
+    inner.traverse((o) => { if (o.isMesh && o.visible !== false && !HIDE3D.has(o.name)) box.expandByObject(o); });
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
   inner.scale.setScalar(1.7 / Math.max(size.x, size.y, size.z));
