@@ -130,7 +130,8 @@ if (host && canvas && window.ME3D_ITEMS) {
   resize();
 
   let ready = false;
-  new GLTFLoader().load('assets/bust.glb', (gltf) => {
+  const HIDE3D = new Set(['cuff_L','cuff_R','laptop_base','laptop_screen_1','laptop_screen_2','keyboard','seat','seatback','leg','leg001','leg002','leg003','Cylinder','Cube009','Cube009_2','Cube009_3']);
+  new GLTFLoader().load('assets/seated_baked.glb', (gltf) => {
     const inner = gltf.scene;
     const box = new THREE.Box3().setFromObject(inner);
     const size = box.getSize(new THREE.Vector3());
@@ -143,8 +144,11 @@ if (host && canvas && window.ME3D_ITEMS) {
     inner.rotation.y = -Math.PI / 2;
     inner.traverse((o) => {
     if (o.isMesh && o.material) {
+      if (HIDE3D.has(o.name)) { o.visible = false; return; }
       const m = o.material;
-      const b = new THREE.MeshBasicMaterial({ map: m.map || null, color: m.color ? m.color.clone() : new THREE.Color(0xffffff), vertexColors: !!m.vertexColors, transparent: !!m.transparent, side: m.side });
+      const c = m.color ? m.color.clone() : new THREE.Color(0xffffff);
+      if (m.name === 'shirt') c.multiplyScalar(0.55);
+      const b = new THREE.MeshBasicMaterial({ map: m.map || null, color: c, side: THREE.DoubleSide });
       o.material = b;
     }
   });
