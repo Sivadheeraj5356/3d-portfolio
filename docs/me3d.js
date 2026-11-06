@@ -111,7 +111,7 @@ if (host && canvas && window.ME3D_ITEMS) {
 
   function applyFraming() {
     const aspect = camera.aspect || 1;
-    const d = Math.max(3.25, 2.45 / aspect);
+    const d = Math.max(2.5, 1.9 / aspect);
     const dir = camera.position.clone().sub(controls.target);
     if (dir.lengthSq() === 0) dir.set(0, 0, 1);
     dir.normalize();
@@ -130,34 +130,31 @@ if (host && canvas && window.ME3D_ITEMS) {
   resize();
 
   let ready = false;
-  const HIDE3D = new Set(['cuff_L','cuff_R','laptop_base','laptop_screen_1','laptop_screen_2','keyboard','seat','seatback','leg','leg001','leg002','leg003','Cylinder','Cube009','Cube009_2','Cube009_3']);
-  new GLTFLoader().load('assets/seated_baked.glb', (gltf) => {
+  new GLTFLoader().load('models/me.glb', (gltf) => {
     const inner = gltf.scene;
+    inner.updateMatrixWorld(true);
     const box = new THREE.Box3();
-    inner.traverse((o) => { if (o.isMesh && o.visible !== false && !HIDE3D.has(o.name)) box.expandByObject(o); });
+    inner.traverse((o) => { if (o.isMesh && o.visible !== false) box.expandByObject(o); });
     const size = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
-    const scale = 1.62 / Math.max(size.x, size.y, size.z);
+    // frame head and shoulders: model-space head sits near y 0.2, full figure ~7.5 tall
+    const scale = 1.15 / (size.y * 0.32);
     inner.scale.setScalar(scale);
-    inner.updateMatrixWorld(true);
-    box.makeEmpty();
-    inner.traverse((o) => { if (o.isMesh && o.visible !== false && !HIDE3D.has(o.name)) box.expandByObject(o); });
-    box.getCenter(center);
-    inner.position.sub(center);
-    inner.rotation.y = -Math.PI / 2;
+    inner.position.set(-center.x * scale, -(0.2 * scale), -center.z * scale);
+    inner.rotation.y = 0;
     inner.traverse((o) => {
     if (o.isMesh && o.material) {
-      if (HIDE3D.has(o.name)) { o.visible = false; return; }
       const m = o.material;
       const c = m.map ? new THREE.Color(0xffffff) : (m.color ? m.color.clone() : new THREE.Color(0xffffff));
-      if (m.name === 'shirt') c.setHex(0x0f1730);
-      const b = new THREE.MeshBasicMaterial({ map: m.map || null, color: c, side: THREE.DoubleSide });
+      if (m.name === 'avaturn_look_0_material' && m.color) c.copy(m.color).multiplyScalar(1.6);
+      if (/^avaturn_hair/.test(m.name)) c.multiplyScalar(0.35);
+      const b = new THREE.MeshBasicMaterial({ map: m.map || null, color: c, side: THREE.DoubleSide, transparent: m.transparent, alphaTest: m.alphaTest || 0 });
       o.material = b;
     }
   });
   model.add(inner);
-    controls.target.set(0, 0.15, 0);
-    camera.position.set(0.3, 0.22, 3.25);
+    controls.target.set(0, 0, 0);
+    camera.position.set(0.12, 0.05, 2.1);
     applyFraming();
     controls.update();
     ready = true;
