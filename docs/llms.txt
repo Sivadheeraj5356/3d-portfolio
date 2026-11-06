@@ -1,0 +1,18 @@
+# Siva Dheeraj - 3D Portfolio
+
+> Portfolio of Siva Dheeraj, a full-stack developer and founding engineer at Applied Work (appliedwork.ai). He builds LLM systems, RAG pipelines, agent evaluation tooling and web products. Based in Surat, India.
+
+This site has two versions of the same portfolio:
+- /3d-portfolio/me.html - the main 3D scroll portfolio (experience and selected works)
+- /3d-portfolio/ - a desktop-style (MacBook UI) version with the same content
+
+## Facts
+- Name: Siva Dheeraj (Siva Dheeraj Ethamsetti)
+- Role: Founding engineer and technical lead, Applied Work; full-stack developer
+- Focus: LLM systems, agent evaluations, RAG pipelines, GTM automation, browser games and web apps
+- Location: Surat, India
+
+## Links
+- Main portfolio: https://sivadheeraj.vercel.app/
+- GitHub: https://github.com/Sivadheeraj5356
+- LinkedIn: https://www.linkedin.com/in/sivadheeraj
